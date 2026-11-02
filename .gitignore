@@ -1,0 +1,14 @@
+node_modules/
+dist/
+build/
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+pgdata/
+.vite/
+coverage/
+
+# 첨부 파일 기본 저장 폴더 (UPLOAD_DIR 을 비웠을 때)
+data/

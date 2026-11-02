@@ -1,0 +1,26 @@
+{
+  "name": "chat-site",
+  "private": true,
+  "version": "0.1.0",
+  "description": "로컬 LLM(Qwen)에 연결하는 ChatGPT형 채팅 사이트",
+  "workspaces": [
+    "apps/*"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev:api": "npm run dev -w apps/api",
+    "dev:web": "npm run dev -w apps/web",
+    "build": "npm run build -w apps/api && npm run build -w apps/web",
+    "typecheck": "npm run typecheck -w apps/api && npm run typecheck -w apps/web",
+    "start": "npm run start -w apps/api",
+    "invite": "npm run invite -w apps/api --",
+    "backup": "npm run backup -w apps/api",
+    "restore": "npm run restore -w apps/api --",
+    "test": "npm run test -w apps/api"
+  },
+  "overrides": {
+    "katex": "^0.19.0"
+  }
+}

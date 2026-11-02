@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <title>로컬 챗</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!-- 첫 화면이 깜빡이지 않도록 테마를 먼저 적용 (CSP 때문에 인라인이 아닌 외부 파일) -->
+    <script src="/theme-init.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

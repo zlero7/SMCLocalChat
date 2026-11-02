@@ -1,0 +1,213 @@
+@import 'tailwindcss';
+@import 'highlight.js/styles/github-dark.css';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans:
+    'Pretendard', ui-sans-serif, system-ui, -apple-system, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic',
+    'Segoe UI', sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', 'D2Coding', Menlo, Consolas, monospace;
+
+  /* 따뜻한 회색 (Claude 처럼 누런빛이 도는 종이색 계열). 배경·글자·테두리에 쓴다 */
+  --color-sand-50: #faf9f5;
+  --color-sand-100: #f4f2ea;
+  --color-sand-200: #e9e6dc;
+  --color-sand-300: #dad6c9;
+  --color-sand-400: #a9a597;
+  --color-sand-500: #7c7a70;
+  --color-sand-600: #5f5d56;
+  --color-sand-700: #46453f;
+  --color-sand-800: #31302d;
+  --color-sand-900: #262624;
+  --color-sand-950: #1d1c1a;
+
+  /* 포인트 색 (테라코타 주황). 버튼·링크·선택 표시에 쓴다 */
+  --color-clay-50: #fbf2ed;
+  --color-clay-100: #f6e0d4;
+  --color-clay-200: #eec1aa;
+  --color-clay-300: #e4a07f;
+  --color-clay-400: #d97f5c;
+  --color-clay-500: #c96442;
+  --color-clay-600: #b25434;
+  --color-clay-700: #93452b;
+  --color-clay-800: #763925;
+  --color-clay-900: #5c2e1f;
+  --color-clay-950: #361910;
+}
+
+:root {
+  color-scheme: light;
+}
+.dark {
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  @apply bg-sand-50 font-sans text-sand-900 antialiased dark:bg-sand-900 dark:text-sand-100;
+  overscroll-behavior: none;
+}
+
+/* 키보드로 이동할 때만 포커스 링 */
+:focus-visible {
+  @apply outline-2 outline-offset-2 outline-clay-500;
+}
+
+/* ───────── 마크다운 본문 ───────── */
+.md {
+  @apply text-[15px] leading-7 wrap-anywhere;
+}
+.md > :first-child {
+  margin-top: 0;
+}
+.md > :last-child {
+  margin-bottom: 0;
+}
+.md p {
+  @apply my-3;
+}
+.md ul {
+  @apply my-3 list-disc pl-6;
+}
+.md ol {
+  @apply my-3 list-decimal pl-6;
+}
+.md li {
+  @apply my-1;
+}
+.md li > p {
+  @apply my-1;
+}
+.md h1,
+.md h2,
+.md h3,
+.md h4 {
+  @apply mt-6 mb-2 leading-snug font-semibold;
+}
+.md h1 {
+  @apply text-xl;
+}
+.md h2 {
+  @apply text-lg;
+}
+.md h3 {
+  @apply text-base;
+}
+.md a {
+  @apply text-clay-600 underline underline-offset-2 dark:text-clay-400;
+}
+.md blockquote {
+  @apply my-3 border-l-[3px] border-sand-300 pl-4 text-sand-600 dark:border-sand-700 dark:text-sand-400;
+}
+.md :not(pre) > code {
+  @apply rounded-md bg-sand-100 px-1.5 py-0.5 font-mono text-[0.88em] dark:bg-sand-800;
+}
+.md pre {
+  @apply m-0;
+}
+.md pre code {
+  @apply font-mono text-[13px] leading-6;
+}
+.md table {
+  @apply my-4 block max-w-full overflow-x-auto border-collapse text-sm;
+}
+.md th,
+.md td {
+  @apply border border-sand-300 px-3 py-1.5 text-left dark:border-sand-700;
+}
+.md th {
+  @apply bg-sand-100 font-semibold dark:bg-sand-800;
+}
+.md hr {
+  @apply my-6 border-sand-200 dark:border-sand-800;
+}
+.md img {
+  @apply max-w-full rounded-lg;
+}
+/* 수식: 긴 수식은 가로 스크롤 (모바일에서 화면 밖으로 나가지 않게) */
+.md .katex-display {
+  @apply my-4 overflow-x-auto overflow-y-hidden py-1;
+}
+.md .katex {
+  font-size: 1.08em;
+}
+
+/* 입력 중 깜빡이는 점 */
+@keyframes dot-bounce {
+  0%,
+  80%,
+  100% {
+    opacity: 0.25;
+    transform: translateY(0);
+  }
+  40% {
+    opacity: 1;
+    transform: translateY(-3px);
+  }
+}
+.typing-dot {
+  animation: dot-bounce 1.2s infinite ease-in-out;
+}
+.typing-dot:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.typing-dot:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+/* "생각하는 중…" 글자 위로 빛이 지나가는 효과 */
+@keyframes thinking-shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+.thinking-shimmer {
+  background: linear-gradient(90deg, currentColor 35%, var(--color-clay-500) 50%, currentColor 65%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: thinking-shimmer 2.2s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .thinking-shimmer {
+    animation: none;
+    color: inherit;
+    background: none;
+  }
+}
+
+/* PDF 로 저장(인쇄): 사이드바·입력창을 빼고 대화 전체가 여러 쪽에 걸쳐 나오게 한다 */
+@media print {
+  [data-print='hide'],
+  header button,
+  .print\:hidden {
+    display: none !important;
+  }
+  html,
+  body,
+  #root,
+  .h-dvh,
+  .h-full {
+    height: auto !important;
+    overflow: visible !important;
+  }
+  .overflow-hidden,
+  .overflow-y-auto {
+    overflow: visible !important;
+  }
+  pre,
+  blockquote,
+  table {
+    break-inside: avoid;
+  }
+}

@@ -1,0 +1,20 @@
+# /etc/systemd/system/llama-server.service 로 복사 후:
+#   sudo systemctl daemon-reload && sudo systemctl enable --now llama-server
+# 경로(모델 파일, 바이너리)와 -ngl/--n-cpu-moe 값은 서버에 맞게 조정하세요.
+[Unit]
+Description=llama.cpp server (Qwen3.6-35B-A3B)
+After=network-online.target
+
+[Service]
+User=llama
+ExecStart=/opt/llama.cpp/build/bin/llama-server \
+  -m /opt/models/Qwen3.6-35B-A3B-Q4_K_M.gguf \
+  --host 0.0.0.0 --port 8080 \
+  --jinja --reasoning-format deepseek \
+  -c 16384 --parallel 2 \
+  -ngl 99 --n-cpu-moe 24
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
